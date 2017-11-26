@@ -7,9 +7,7 @@ public class Vergleich {
     public static final double versicherung3_prozentsatz = 3.5;
 
     public static int preisBerechnung(int preis, int fixkosten, double prozentsatz){
-        int ergebnis =(int) ((preis/100)*prozentsatz);
-        ergebnis = ergebnis + fixkosten;
-        return ergebnis;
+        return (int) (((preis/100)*prozentsatz)+fixkosten);
     }
     public static int berechneDelta(int billigstes, int preis1, int preis2, int preis3){
         if (billigstes == 1) {
@@ -36,7 +34,7 @@ public class Vergleich {
         }
     }
     public static int berechneBilligstes(int preis1, int preis2, int preis3){
-        if (preis1 < preis2 && preis1 < preis3)
+        if (preis1 <= preis2 && preis1 <= preis3)
             return 1;
         else if(preis2 < preis3)
                 return 2;
@@ -45,24 +43,35 @@ public class Vergleich {
 
     }
     public static void main(String[] args){
-        System.out.println("Preis   Vers1   Vers2   Vers3   Minimum     Delta Min.");
-        for (int preis =1000; preis<=6000; preis=preis+200){
+        System.out.println("Preis" +"\t"+  "Vers1" +"\t"+ "Vers2" +"\t"+  "Vers3" +"\t"+ "Minimum" +"\t\t\t"+ "Delta Min.");
+        int vers1Billigsten=0, vers2Billigsten=0, vers3Billigsten = 0;
+        for (int preis =1000; preis<=16000; preis+=200){
             int vers1 = preisBerechnung(preis, versicherung1_fixkosten, versicherung1_prozentsatz);
             int vers2 = preisBerechnung(preis, versicherung2_fixkosten, versicherung2_prozentsatz);
             int vers3 = preisBerechnung(preis, versicherung3_fixkosten, versicherung3_prozentsatz);
-            System.out.print(preis+ "    ");
-            System.out.print(vers1+ "     ");
-            System.out.print(vers2+ "     ");
-            System.out.print(vers3+ "      ");
+            System.out.print(preis+ "\t");
+            System.out.print(vers1+ "\t\t");
+            System.out.print(vers2+ "\t\t");
+            System.out.print(vers3+ "\t\t");
             int billigste =berechneBilligstes(vers1, vers2, vers3);
-            if (billigste == 1)
-                System.out.print("Versich. 1   ");
-            else if (billigste == 2)
-                System.out.print("Versich. 2   ");
-                else
-                    System.out.print("Versich. 3   ");
+            if (billigste == 1) {
+                System.out.print("Versich. 1" + "\t\t");
+                vers1Billigsten++;
+            }
+            else if (billigste == 2) {
+                System.out.print("Versich. 2" + "\t\t");
+                vers2Billigsten++;
+            }
+                else {
+                System.out.print("Versich. 3" + "\t\t");
+                vers3Billigsten++;
+            }
             System.out.print(berechneDelta(billigste, vers1 ,vers2, vers3));
             System.out.println("");
         }
+        System.out.println("Am günstigsten:");
+        System.out.println("Versicherung 1:\t"+vers1Billigsten+"\tMal");
+        System.out.println("Versicherung 2:\t"+vers2Billigsten+"\tMal");
+        System.out.println("Versicherung 3:\t"+vers3Billigsten+"\tMal");
     }
 }
