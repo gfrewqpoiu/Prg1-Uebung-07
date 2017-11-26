@@ -45,7 +45,7 @@ public class Vergleich {
     public static void main(String[] args){
         System.out.println("Preis" +"\t"+  "Vers1" +"\t"+ "Vers2" +"\t"+  "Vers3" +"\t"+ "Minimum" +"\t\t\t"+ "Delta Min.");
         int vers1Billigsten=0, vers2Billigsten=0, vers3Billigsten = 0;
-        for (int preis =1000; preis<=16000; preis+=200){
+        for (int preis =1000; preis<=6000; preis+=200){
             int vers1 = preisBerechnung(preis, versicherung1_fixkosten, versicherung1_prozentsatz);
             int vers2 = preisBerechnung(preis, versicherung2_fixkosten, versicherung2_prozentsatz);
             int vers3 = preisBerechnung(preis, versicherung3_fixkosten, versicherung3_prozentsatz);
