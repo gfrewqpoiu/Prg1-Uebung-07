@@ -3,12 +3,14 @@ public class Versicherung {
     double prozentsatz;
     int ambilligsten;
     String name;
+    String vollername;
 
-    Versicherung(int fix, double prozent, String name){
+    Versicherung(int fix, double prozent, String n, String vn){
         fixkosten = fix;
         prozentsatz = prozent;
         ambilligsten = 0;
-        name = name;
+        name = n;
+        vollername = vn;
     }
 
     public int preisBerechnung(int preis){

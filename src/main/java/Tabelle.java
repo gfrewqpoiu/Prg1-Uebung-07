@@ -10,15 +10,7 @@ public class Tabelle {
     public void println(String ausgabe){
         print(ausgabe + "\n");
     }
-
-    public void printfooter(Versicherung vers1, Versicherung vers2, Versicherung vers3){
-        println("");
-        println("Am günstigsten:");
-        println("Versicherung 1:\t"+vers1.ambilligsten+"\tMal");
-        println("Versicherung 2:\t"+vers2.ambilligsten+"\tMal");
-        println("Versicherung 3:\t"+vers3.ambilligsten+"\tMal");
-    }
-
+    
     public void makezeile(String s, int tabs){
         if (tabs == 2){
             s = s + "\t\t";
@@ -37,5 +29,16 @@ public class Tabelle {
     public void printzeile(){
         println(zeile);
         zeile = "";
+    }
+    public void printfooter(Versicherung[] v){
+        println("");
+        println("Am günstigsten:");
+        for (Versicherung vers:
+             v) {
+            makezeile(vers.vollername, 1);
+            makezeile(vers.ambilligsten, 1);
+            makezeile("Mal", 0);
+            printzeile();
+        }
     }
 }
