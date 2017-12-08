@@ -6,9 +6,6 @@ public class Vergleich {
     public static final double versicherung2_prozentsatz = 5;
     public static final double versicherung3_prozentsatz = 3.5;
 
-    public static int preisBerechnung(int preis, int fixkosten, double prozentsatz){
-        return (int) (((preis/100)*prozentsatz)+fixkosten);
-    }
     public static int berechneDelta(int billigstes, int preis1, int preis2, int preis3){
         if (billigstes == 1) {
             if (preis2 <= preis3) {
@@ -43,35 +40,36 @@ public class Vergleich {
 
     }
     public static void main(String[] args){
-        System.out.println("Preis" +"\t"+  "Vers1" +"\t"+ "Vers2" +"\t"+  "Vers3" +"\t"+ "Minimum" +"\t\t\t"+ "Delta Min.");
-        int vers1Billigsten=0, vers2Billigsten=0, vers3Billigsten = 0;
+        Tabelle t = new Tabelle();
+        t.printKopf();
+        t.println("");
+        Versicherung vers1 =  new Versicherung(versicherung1_fixkosten, versicherung1_prozentsatz, "Versich. 1");
+        Versicherung vers2 =  new Versicherung(versicherung2_fixkosten, versicherung2_prozentsatz, "Versich. 2");
+        Versicherung vers3 =  new Versicherung(versicherung3_fixkosten, versicherung3_prozentsatz, "Versich. 3");
         for (int preis =1000; preis<=6000; preis+=200){
-            int vers1 = preisBerechnung(preis, versicherung1_fixkosten, versicherung1_prozentsatz);
-            int vers2 = preisBerechnung(preis, versicherung2_fixkosten, versicherung2_prozentsatz);
-            int vers3 = preisBerechnung(preis, versicherung3_fixkosten, versicherung3_prozentsatz);
-            System.out.print(preis+ "\t");
-            System.out.print(vers1+ "\t\t");
-            System.out.print(vers2+ "\t\t");
-            System.out.print(vers3+ "\t\t");
-            int billigste =berechneBilligstes(vers1, vers2, vers3);
+            int vers1preis = vers1.preisBerechnung(preis);
+            int vers2preis = vers2.preisBerechnung(preis);
+            int vers3preis = vers3.preisBerechnung(preis);
+            t.makezeile(preis, 1);
+            t.makezeile(vers1preis, 2);
+            t.makezeile(vers2preis, 2);
+            t.makezeile(vers3preis, 2);
+            int billigste = berechneBilligstes(vers1preis, vers2preis, vers3preis);
             if (billigste == 1) {
-                System.out.print("Versich. 1" + "\t\t");
-                vers1Billigsten++;
+                t.makezeile(vers1.name, 2);
+                vers1.waramBilligsten();
             }
             else if (billigste == 2) {
-                System.out.print("Versich. 2" + "\t\t");
-                vers2Billigsten++;
+                t.makezeile(vers2.name, 2);
+                vers2.waramBilligsten();
             }
                 else {
-                System.out.print("Versich. 3" + "\t\t");
-                vers3Billigsten++;
+                t.makezeile(vers3.name, 2);
+                vers3.waramBilligsten();
             }
-            System.out.print(berechneDelta(billigste, vers1 ,vers2, vers3));
-            System.out.println("");
+            t.makezeile((berechneDelta(billigste, vers1preis ,vers2preis, vers3preis)), 0);
+            t.printzeile();
         }
-        System.out.println("Am günstigsten:");
-        System.out.println("Versicherung 1:\t"+vers1Billigsten+"\tMal");
-        System.out.println("Versicherung 2:\t"+vers2Billigsten+"\tMal");
-        System.out.println("Versicherung 3:\t"+vers3Billigsten+"\tMal");
+        t.printfooter(vers1, vers2, vers3);
     }
 }
