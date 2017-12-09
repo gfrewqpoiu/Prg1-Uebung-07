@@ -57,6 +57,24 @@ public class Vergleich {
             return 3;
         }
     }
+
+    public static void berechnung(Versicherung[] vers, Tabelle t){
+        for (int preis =1000; preis<=6000; preis+=200){
+            int preise[] = new int[vers.length];
+            for (int i = 0; i<vers.length; i++){
+                preise[i] = vers[i].preisBerechnung(preis);
+            }
+            t.makezeile(preis, 1);
+            for (int vpreis:
+                    preise) {
+                t.makezeile(vpreis, 2);
+            }
+            t.makezeile((berechneDelta(billigstes(t, preise, vers), preise[0] ,preise[1], preise[2])), 0);
+            t.printzeile();
+        }
+        t.printfooter(vers);
+    }
+
     public static void main(String[] args){
         Tabelle t = new Tabelle();
         t.printKopf();
@@ -65,16 +83,6 @@ public class Vergleich {
         Versicherung vers2 =  new Versicherung(versicherung2_fixkosten, versicherung2_prozentsatz, "Versich. 2", "Versicherung 2:");
         Versicherung vers3 =  new Versicherung(versicherung3_fixkosten, versicherung3_prozentsatz, "Versich. 3", "Versicherung 3:");
         Versicherung versicherungen[] = new Versicherung[]{vers1, vers2, vers3};
-        for (int preis =1000; preis<=6000; preis+=200){
-            int preise[] = new int[]{vers1.preisBerechnung(preis), vers2.preisBerechnung(preis), vers3.preisBerechnung(preis)};
-            t.makezeile(preis, 1);
-            for (int vpreis:
-                 preise) {
-                t.makezeile(vpreis, 2);
-            }
-            t.makezeile((berechneDelta(billigstes(t, preise, versicherungen), preise[0] ,preise[1], preise[2])), 0);
-            t.printzeile();
-        }
-        t.printfooter(versicherungen);
+        berechnung(versicherungen, t);
     }
 }

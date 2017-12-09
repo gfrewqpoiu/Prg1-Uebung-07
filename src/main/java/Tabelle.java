@@ -1,17 +1,26 @@
-public class Tabelle {
-    String kopf = "Preis" +"\t"+  "Vers1" +"\t"+ "Vers2" +"\t"+  "Vers3" +"\t"+ "Minimum" +"\t\t\t"+ "Delta Min.";
-    String zeile = "";
+public class Tabelle { //table in English
+    String kopf = "Preis" +"\t"+  "Vers1" +"\t"+ "Vers2" +"\t"+  "Vers3" +"\t"+ "Minimum" +"\t\t\t"+ "Delta Min."; //header
+    String zeile = ""; //one line of the table
     public void print(String ausgabe){
+        /*
+         * shorthand for System.out.print(s)
+         */
         System.out.print(ausgabe);
     }
     public void printKopf(){
         print(kopf);
     }
     public void println(String ausgabe){
+        /*
+         * shorthand for System.out.println
+         */
         print(ausgabe + "\n");
     }
     
     public void makezeile(String s, int tabs){
+        /*
+         * Adds the given String to the end of the current line and then adds the given amount of tabulators at the end.
+         */
         if (tabs == 2){
             s = s + "\t\t";
         }
